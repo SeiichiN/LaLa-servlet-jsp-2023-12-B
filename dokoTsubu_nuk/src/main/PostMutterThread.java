@@ -4,14 +4,17 @@ import java.util.List;
 
 import model.Mutter;
 import model.PostMutterLogic;
-import model.User;
 
 public class PostMutterThread extends Thread {
 	private String name;
+	private PostMutterLogic logic;
 	private List<Mutter> mutterList;
 	
-	public PostMutterThread(String name, List<Mutter> mutterList) {
+	public PostMutterThread(String name,
+							PostMutterLogic logic,
+							List<Mutter> mutterList) {
 		this.name = name;
+		this.logic = logic;
 		this.mutterList = mutterList;
 	}
 
@@ -24,8 +27,7 @@ public class PostMutterThread extends Thread {
 			} catch (InterruptedException e) {
 			}
 			Mutter mutter = new Mutter(name, "じゅげむ" + i);
-			// PostMutterLogic logic = new PostMutterLogic();
-			PostMutterLogic.execute(mutter, mutterList);
+			logic.execute(mutter, mutterList);
 			i++;
 		}
 		System.out.println(Thread.currentThread() + " end.");

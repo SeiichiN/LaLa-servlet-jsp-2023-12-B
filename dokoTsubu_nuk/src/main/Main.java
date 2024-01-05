@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Mutter;
+import model.PostMutterLogic;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		List<Mutter> mutterList = new ArrayList<>();
+		PostMutterLogic logic = new PostMutterLogic();
 		
-		new PostMutterThread("userA", mutterList).start();
-		new PostMutterThread("userB", mutterList).start();
-		new PostMutterThread("userC", mutterList).start();
+		new PostMutterThread("userA", logic, mutterList).start();
+		new PostMutterThread("userB", logic, mutterList).start();
+		new PostMutterThread("userC", logic, mutterList).start();
 		
 		Thread.sleep(5000);
 		System.out.println("size: " + mutterList.size());

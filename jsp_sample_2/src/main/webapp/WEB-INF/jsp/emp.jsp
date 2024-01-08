@@ -8,10 +8,10 @@
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-	<jsp:include page="common/header.jsp" />
+	<%@ include file="common/header.jsp" %>
 	<article>
 		<h1>社員一覧</h1>
 	</article>
-	<jsp:include page="common/footer.jsp" />
+	<%@ include file="common/footer.jsp" %>
 </body>
 </html>

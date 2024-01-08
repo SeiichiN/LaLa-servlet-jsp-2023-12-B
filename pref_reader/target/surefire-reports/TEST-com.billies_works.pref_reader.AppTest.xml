@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.billies_works.pref_reader.AppTest" time="0.022" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/test-classes:/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/classes:/home/se-ichi/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/home/se-ichi/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/home/se-ichi/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/home/se-ichi/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="JP"/>
+    <property name="sun.boot.library.path" value="/home/se-ichi/bin/eclipse/jee-2023-06/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858/jre/lib"/>
+    <property name="sun.java.command" value="/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/surefire/surefirebooter-20240106144358127_3.jar /home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/surefire 2024-01-06T14-43-58_019-jvmRun1 surefire-20240106144358127_1tmp surefire_0-20240106144358127_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/test-classes:/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/classes:/home/se-ichi/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/home/se-ichi/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/home/se-ichi/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/home/se-ichi/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/se-ichi"/>
+    <property name="user.language" value="ja"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2023-10-17"/>
+    <property name="java.home" value="/home/se-ichi/bin/eclipse/jee-2023-06/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_17.0.9.v20231028-0858/jre"/>
+    <property name="file.separator" value="/"/>
+    <property name="style.color" value="always"/>
+    <property name="basedir" value="/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader/target/surefire/surefirebooter-20240106144358127_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.9+9"/>
+    <property name="user.name" value="se-ichi"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.2.0-39-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-17.0.9+9"/>
+    <property name="localRepository" value="/home/se-ichi/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="17.0.9"/>
+    <property name="user.dir" value="/home/se-ichi/workspace/LaLa-servlet-jsp-2023-12-B/pref_reader"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="17.0.9+9"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testApp" classname="com.billies_works.pref_reader.AppTest" time="0.002"/>
+</testsuite>

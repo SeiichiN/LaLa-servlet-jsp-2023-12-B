@@ -2,11 +2,9 @@ package json2pojo;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {
@@ -14,6 +12,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonFactory factory = new JsonFactory();
+		@SuppressWarnings("deprecation")
 		JsonParser parser = factory.createJsonParser(new File("./data/sample.json"));
 		City city = objectMapper.readValue(parser, City.class);
 		

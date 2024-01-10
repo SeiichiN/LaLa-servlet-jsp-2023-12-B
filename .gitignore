@@ -49,6 +49,8 @@ replay_pid*
 !jstl-api-1.2.jar
 !jstl-impl-1.2.jar
 !h2-*.jar
+!jackson-*.jar
+!javax.annotation-api-*.jar
 
 sukkiri_java_jissen_2
 

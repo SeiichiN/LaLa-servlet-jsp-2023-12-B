@@ -1,40 +1,21 @@
 package test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
+
+import model.Employee;
+import model.GetEmpListLogic;
 
 public class SelectEmployees {
 
 	public static void main(String[] args) {
+		GetEmpListLogic logic = new GetEmpListLogic();
+		List<Employee> empList = logic.execute();
 		
-		try {
-			// DriverManagerに org.h2.Driver を登録する
-			Class.forName("org.h2.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException
-				("JDBCドライバの読み込みエラー");
-		}
-		try (Connection conn = DriverManager.getConnection
-				("jdbc:h2:tcp://localhost/~/example", "sa", "")) {
-			
-			String sql = "SELECT id, name, age FROM employees";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			ResultSet rs = pStmt.executeQuery();
-			while (rs.next()) {
-				String id = rs.getString("id");
-				String name = rs.getString("name");
-				int age = rs.getInt("age");
-				
-				System.out.println("id:" + id);
-				System.out.println("名前:" + name);
-				System.out.println("年齢:" + age);
-				System.out.println();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		for (Employee emp : empList) {
+			System.out.println("id:" + emp.getId());
+			System.out.println("名前:" + emp.getName());
+			System.out.println("年齢:" + emp.getAge());
+			System.out.println();
 		}
 
 	}

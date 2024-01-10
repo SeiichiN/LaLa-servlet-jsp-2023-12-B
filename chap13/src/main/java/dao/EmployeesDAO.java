@@ -12,7 +12,7 @@ import model.Employee;
 
 public class EmployeesDAO {
 	private final String JDBC_URL = 
-			"w";
+			"jdbc:h2:tcp://localhost/~/example";
 	private final String DB_USER = "sa";
 	private final String DB_PASS = "";
 			

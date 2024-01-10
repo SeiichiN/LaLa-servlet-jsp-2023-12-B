@@ -19,7 +19,7 @@
 		<input type="submit" value="つぶやく">
 	</form>
 	<c:if test="${not empty errorMsg}">
-		<p style="color: orange"><c:out value="${errorMsg}" /></p>
+		<p style="color: red"><c:out value="${errorMsg}" /></p>
 	</c:if>
 	<c:forEach var="m" items="${mutterList}">
 		<p><c:out value="${m.userName}"/>:<c:out value="${m.text}"/></p>

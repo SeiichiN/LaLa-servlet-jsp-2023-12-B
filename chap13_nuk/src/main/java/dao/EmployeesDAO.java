@@ -11,20 +11,21 @@ import java.util.List;
 import model.Employee;
 
 public class EmployeesDAO {
-	private static final String JDBC_URL = "jdbc:h2:tcp://localhost/~/example";
-	private static final String DB_USER = "sa";
-	private static final String DB_PASS = "";
+	private final String JDBC_URL = 
+			"jdbc:h2:tcp://localhost/~/example";
+	private final String DB_USER = "sa";
+	private final String DB_PASS = "";
+			
+	private final String SQL_FIND_ALL =
+			"SELECT id, name, age FROM employees";
 	
-	private static final String SQL_FIND_ALL =
-			"""
-			SELECT id, name, age
-			  FROM employee
-			  ORDER BY id asc
-			""";
-	
-	public List<Employee> findAll() {
-		List<Employee> empList = new ArrayList<>();
-		
+	private final String SQL_CREATE = 
+			"INSERT INTO employees "
+			+ "  (id, name, age) "
+			+ " VALUES "
+			+ "  (?, ?, ?)";
+
+	private void registerDriver() {
 		try {
 			// DriverManagerに org.h2.Driver を登録する
 			Class.forName("org.h2.Driver");
@@ -32,8 +33,15 @@ public class EmployeesDAO {
 			throw new IllegalStateException
 				("JDBCドライバの読み込みエラー");
 		}
+	}
+	
+	public List<Employee> findAll() {
+		List<Employee> empList = new ArrayList<>();
+		
+		registerDriver();
 		try (Connection conn = DriverManager.getConnection
 				(JDBC_URL, DB_USER, DB_PASS)) {
+			
 			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_ALL);
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
@@ -44,9 +52,75 @@ public class EmployeesDAO {
 				empList.add(employee);
 			}
 		} catch (SQLException e) {
-			empList = null;
 			e.printStackTrace();
+			return null;
 		}
 		return empList;
 	}
-}
+	
+	public boolean remove(String id) {
+		registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(JDBC_URL, DB_USER, DB_PASS)) {
+			
+			String sql = "DELETE FROM employees WHERE id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, id);
+			// ResultSet rs = pStmt.executeQuery(); 
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	} // remove() end
+	
+	public boolean create(Employee emp) {
+		registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(JDBC_URL, DB_USER, DB_PASS)) {
+
+			PreparedStatement pStmt = conn.prepareStatement(SQL_CREATE);
+			pStmt.setString(1, emp.getId());
+			pStmt.setString(2, emp.getName());
+			pStmt.setInt(3, emp.getAge());
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * idがすでに存在するか
+	 * @param id
+	 * @return true -- idがすでに存在する<br>
+	 *         false -- idが存在しない
+	 */
+	public boolean isExistsId(String id) {
+		int count = 0;
+		registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(JDBC_URL, DB_USER, DB_PASS)) {
+			String url = "SELECT id FROM employees WHERE id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(url);
+			pStmt.setString(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return true;
+		}
+		return false;
+	}
+	
+} // class end

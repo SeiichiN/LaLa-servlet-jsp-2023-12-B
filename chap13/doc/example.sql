@@ -14,4 +14,10 @@ VALUES
   ('EMP001', '湊 雄輔', 23),
   ('EMP002', '綾部 みゆき', 22);
 
+
+INSERT INTO employees 
+  (id, name, age)
+VALUES
+  ('EMP003', '菅原 拓馬', 34);
+
   

@@ -24,18 +24,25 @@ public class EmployeesDAO {
 			+ "  (id, name, age) "
 			+ " VALUES "
 			+ "  (?, ?, ?)";
-
 	
-	public List<Employee> findAll() {
-		List<Employee> empList = new ArrayList<>();
-		
+	private final String SQL_EXISTS_ID =
+			"SELECT id FROM employees WHERE id = ?";
+
+	private void registerDriver() {
 		try {
 			// DriverManagerに org.h2.Driver を登録する
 			Class.forName("org.h2.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException
 				("JDBCドライバの読み込みエラー");
-		}
+		}		
+	}
+	
+	
+	public List<Employee> findAll() {
+		List<Employee> empList = new ArrayList<>();
+		
+		registerDriver();
 		try (Connection conn = DriverManager.getConnection
 				(JDBC_URL, DB_USER, DB_PASS)) {
 			
@@ -56,13 +63,7 @@ public class EmployeesDAO {
 	}
 	
 	public boolean remove(String id) {
-		try {
-			// DriverManagerに org.h2.Driver を登録する
-			Class.forName("org.h2.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException
-				("JDBCドライバの読み込みエラー");
-		}
+		registerDriver();
 		try (Connection conn = DriverManager.getConnection
 				(JDBC_URL, DB_USER, DB_PASS)) {
 			
@@ -82,13 +83,7 @@ public class EmployeesDAO {
 	} // remove() end
 	
 	public boolean create(Employee emp) {
-		try {
-			// DriverManagerに org.h2.Driver を登録する
-			Class.forName("org.h2.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException
-				("JDBCドライバの読み込みエラー");
-		}
+		registerDriver();
 		try (Connection conn = DriverManager.getConnection
 				(JDBC_URL, DB_USER, DB_PASS)) {
 
@@ -105,6 +100,30 @@ public class EmployeesDAO {
 			return false;
 		}
 		return true;
+	}  // create
+	
+	/**
+	 * そのIDが存在しているかを調べる
+	 * @param id
+	 * @return true -- 存在している<br>
+	 *          false -- 存在していない
+	 */
+	public boolean isExistsId(String id) {
+		registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(JDBC_URL, DB_USER, DB_PASS)) {
+
+			PreparedStatement pStmt = conn.prepareStatement(SQL_EXISTS_ID);
+			pStmt.setString(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return true;
+		}		
+		return false;
 	}
 	
 } // class end

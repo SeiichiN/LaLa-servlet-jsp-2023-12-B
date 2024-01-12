@@ -1,7 +1,6 @@
 package servlet.create;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,10 +26,10 @@ public class CreateConfirmServlet extends HttpServlet {
 		// エラーがあれば createEmp.jsp にもどる。
 		// エラーメッセージを送る。
 		Validator validator = new Validator();
-		Map<String, String> errorList = validator.ckeck(emp);
+		Map<String, String> errors = validator.ckeck(emp);
 		String url = null;
-		if (errorList.size() > 0) {
-			request.setAttribute("errorList", errorList);
+		if (errors.size() > 0) {
+			request.setAttribute("errors", errors);
 			url = "WEB-INF/jsp/create/createEmp.jsp";
 		} else {
 			url = "WEB-INF/jsp/create/createConfirm.jsp";

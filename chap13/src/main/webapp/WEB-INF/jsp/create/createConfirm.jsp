@@ -26,7 +26,7 @@
 				<input type="hidden" name="age" value="${emp.age}">
 				<input type="submit" value="登録">
 				<input type="submit" value="取消" 
-				       formaction="create" formmethod="get">				
+				       formaction="create" formmethod="post">				
 			</form>
 		</article>
 		<jsp:include page="../common/aside.jsp" />

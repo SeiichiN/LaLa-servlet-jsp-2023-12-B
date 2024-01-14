@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+body, h1, h2, h3, p, ul {
+	margin: 0;
+}
+ul {
+	padding: 0;
+	list-style-type: none;
+}
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+.center {
+	width: 600px;
+	margin: 0 auto;
+}
+
+header {
+	background-color: azure;
+	padding: 10px 0;
+	margin-bottom: 20px;
+	border-bottom: solid 1px #99ffdb;
+	box-shadow: 0 1px 3px #99ffdb;
+}
+header h1 {
+	font-size: 1.2em;
+}
+
+footer {
+	background-color: azure;
+	position: fixed;
+	padding: 10px 0;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+	border-top: solid 1px #99ffdb;
+}
+
+.main {
+	display: flex;
+	justify-content: space-between;
+}
+
+article {
+	margin-right: 10px;
+}
+
+aside h2 {
+	font-size: 1em;
+}
+
+aside li a {
+	text-decoration: underline;
+}
+
+/************************/
+/* テーブル             */
+/************************/
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: solid 1px #aaa;
+	padding: 5px 8px;
+}
+
+th {
+	text-align: left;
+}
+
+.no-border {
+	border: none;
+}
+
+/**************************
+   入力画面
+ **************************/
+.errMsg {
+	color: red;
+}

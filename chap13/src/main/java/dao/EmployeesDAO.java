@@ -11,8 +11,9 @@ import java.util.List;
 import model.Employee;
 
 public class EmployeesDAO {
-	private final String JDBC_URL = 
+	private final String JDBC_URL =
 			"jdbc:h2:tcp://localhost/~/example";
+			// "jdbc:mysql://localhost:3306/example";
 	private final String DB_USER = "sa";
 	private final String DB_PASS = "";
 			
@@ -32,6 +33,7 @@ public class EmployeesDAO {
 		try {
 			// DriverManagerに org.h2.Driver を登録する
 			Class.forName("org.h2.Driver");
+			// Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException
 				("JDBCドライバの読み込みエラー");

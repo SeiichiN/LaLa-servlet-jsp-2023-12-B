@@ -29,7 +29,12 @@
 								<input type="submit" value="編集">
 							</form>
 						</td>
-						<td class="no-border">削除</td>
+						<td class="no-border">
+							<form action="deleteConfirm" method="GET">
+								<input type="hidden" name="id" value="${emp.id}">
+								<input type="submit" value="削除">
+							</form>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

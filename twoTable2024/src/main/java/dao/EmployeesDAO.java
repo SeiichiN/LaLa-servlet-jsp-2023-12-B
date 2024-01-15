@@ -54,6 +54,9 @@ public class EmployeesDAO {
 			+ " WHERE "
 			+ "    id = ?";
 	
+	private final String SQL_REMOVE =
+			"DELETE FROM employees WHERE id = ?";
+	
 	public List<Employee> findAll() {
 		List<Employee> empList = new ArrayList<>();
 		DBConnect.registerDriver();
@@ -156,6 +159,24 @@ public class EmployeesDAO {
 			pStmt.setInt(2, emp.getAge());
 			pStmt.setString(3, emp.getDept().getId());
 			pStmt.setString(4, emp.getId());
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}		
+		return true;
+	}
+	
+	public boolean remove(String id) {
+		DBConnect.registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+
+			PreparedStatement pStmt = conn.prepareStatement(SQL_REMOVE);
+			pStmt.setString(1, id);
 			int result = pStmt.executeUpdate();
 			if (result != 1) {
 				return false;

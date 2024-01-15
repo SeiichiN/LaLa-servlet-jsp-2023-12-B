@@ -1,9 +1,14 @@
 -- create database twoTables
 -- use twoTables
 
-DROP TABLE IF EXISTS dept;
 DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS dept;
 
+
+CREATE TABLE dept (
+  id   CHAR(3) PRIMARY KEY,
+  name VARCHAR(20) NOT NULL
+);
 
 CREATE TABLE employees (
   id      CHAR(6) PRIMARY KEY,
@@ -12,6 +17,18 @@ CREATE TABLE employees (
   dept_id CHAR(3)
 );
 
+ALTER TABLE employees
+ADD
+  CONSTRAINT fk_dept_id
+  FOREIGN KEY (dept_id) REFERENCES dept (id);
+
+INSERT INTO dept VALUES
+('D01', '総務部'),
+('D02', '経理部'),
+('D03', '営業部'),
+('D04', '開発部');
+
+SELECT * FROM dept;
 
 INSERT INTO employees
   (id, name, age, dept_id)
@@ -22,28 +39,7 @@ VALUES
   ('EMP004', '二階堂 ふみ', 25, 'D04'),
   ('EMP005', '渡辺 哲',     26, 'D01');
 
-
 SELECT * FROM employees;
-
-CREATE TABLE dept (
-  id   CHAR(3) PRIMARY KEY,
-  name VARCHAR(20) NOT NULL
-);
-
-INSERT INTO dept VALUES
-('D01', '総務部'),
-('D02', '経理部'),
-('D03', '営業部'),
-('D04', '開発部');
-
-SELECT * FROM dept;
-
-
-ALTER TABLE employees
-ADD
-  CONSTRAINT fk_dept_id
-  FOREIGN KEY (dept_id) REFERENCES dept (id);
-
 
 SELECT
   e.id AS id,

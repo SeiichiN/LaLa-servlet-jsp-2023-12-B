@@ -8,7 +8,7 @@
 	<jsp:include page="../common/header.jsp" />
 	<main class="main center">
 		<article>
-			<h2>社員情報更新確認</h2>
+			<h2>社員情報削除確認</h2>
 			<ul>
 				<li>
 					ID:<c:out value="${emp.id}"/>

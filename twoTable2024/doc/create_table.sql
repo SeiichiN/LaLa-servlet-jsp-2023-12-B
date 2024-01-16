@@ -1,5 +1,8 @@
 -- create database twoTables
 -- use twoTables
+-- user: sa
+-- password: (none)
+
 
 DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS dept;

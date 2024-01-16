@@ -26,13 +26,13 @@
 						<td class="no-border">
 							<form action="update" method="GET">
 								<input type="hidden" name="id" value="${emp.id}">
-								<input type="submit" value="編集">
+								<button type="submit" class="image-btn">${img_pencil}</button>
 							</form>
 						</td>
 						<td class="no-border">
 							<form action="deleteConfirm" method="GET">
 								<input type="hidden" name="id" value="${emp.id}">
-								<input type="submit" value="削除">
+								<button type="submit" class="image-btn">${img_trash}</button>
 							</form>
 						</td>
 					</tr>

@@ -47,6 +47,18 @@ article {
 	margin-right: 10px;
 }
 
+.image-btn {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+.image-btn:hover {
+	box-shadow: 0 2px #333;
+}
+.search-box input:focus {
+	outline: none;
+}
+
 aside h2 {
 	font-size: 1em;
 }

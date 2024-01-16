@@ -15,7 +15,9 @@ import javax.servlet.http.HttpFilter;
 import model.dept.Dept;
 import model.dept.GetDeptListLogic;
 
-@WebFilter(urlPatterns = {"/create", "/update"})
+// aside.jspで deptList を使うなら、すべてのURLでこのフィルターを
+// 実行させる必要がある。"/*" が必要。
+@WebFilter(urlPatterns = {"/list", "/create", "/update"})
 public class GetDeptListFilter extends HttpFilter implements Filter {
        
 	public void destroy() {
@@ -24,6 +26,9 @@ public class GetDeptListFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	List<Dept> deptList = new GetDeptListLogic().execute();
+    	for (Dept d : deptList) {
+    		System.out.println(d.getId() + ":" + d.getName());
+    	}
     	request.setAttribute("deptList", deptList);
 
 		// pass the request along the filter chain

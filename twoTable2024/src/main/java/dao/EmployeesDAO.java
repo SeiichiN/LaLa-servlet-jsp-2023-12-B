@@ -45,6 +45,19 @@ public class EmployeesDAO {
 			+ " WHERE "
 			+ "    e.id = ?";
 	
+	private final String SQL_FIND_BY_DEPTID =
+	"SELECT "
+	+ "   e.id AS id, "
+	+ "   e.name AS name, "
+	+ "   e.age AS age, "
+	+ "   d.id AS did, "
+	+ "   d.name AS dname "
+	+ " FROM employees e "
+	+ "   LEFT OUTER JOIN dept d "
+	+ "   ON e.dept_id = d.id "
+	+ " WHERE "
+	+ "    d.id = ?";
+	
 	private final String SQL_UPDATE =
 			"UPDATE employees "
 			+ " SET "
@@ -69,7 +82,6 @@ public class EmployeesDAO {
 	
 	private final String SQL_REMOVE =
 			"DELETE FROM employees WHERE id = ?";
-	
 	public List<Employee> findAll() {
 		List<Employee> empList = new ArrayList<>();
 		DBConnect.registerDriver();
@@ -115,6 +127,31 @@ public class EmployeesDAO {
 			return null;
 		}
 		return emp;
+	}
+
+	public List<Employee> findListByDeptId(String dept_id) {
+		List<Employee> empList = new ArrayList<>();
+		DBConnect.registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_BY_DEPTID);
+			pStmt.setString(1, dept_id);
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				int age = rs.getInt("age");
+				String did = rs.getString("did");
+				String dname = rs.getString("dname");
+				Dept dept = new Dept(did, dname);
+				Employee emp = new Employee(id, name, age, dept);
+				empList.add(emp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return empList;
 	}
 
 	public List<Employee> findByName(String _name) {

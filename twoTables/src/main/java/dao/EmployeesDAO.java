@@ -8,14 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Dept;
 import model.Employee;
+import model.dept.Dept;
 
 public class EmployeesDAO {
-	private final String JDBC_URL =
-			"jdbc:h2:tcp://localhost/~/twoTables";
-	private final String DB_USER = "sa";
-	private final String DB_PASS = "";
 			
 	private final String SQL_FIND_ALL =
 			"SELECT "
@@ -29,24 +25,15 @@ public class EmployeesDAO {
 			+ "  ON e.dept_id = d.id "
 			+ "ORDER BY e.id";
 	
-
-	private void registerDriver() {
-		try {
-			// DriverManagerに org.h2.Driver を登録する
-			Class.forName("org.h2.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException
-				("JDBCドライバの読み込みエラー");
-		}		
-	}
-	
+	private final String SQL_EXISTS_ID =
+			"SELECT id FROM employees WHERE id = ?";
 	
 	public List<Employee> findAll() {
 		List<Employee> empList = new ArrayList<>();
 		
-		registerDriver();
+		DBConnect.registerDriver();
 		try (Connection conn = DriverManager.getConnection
-				(JDBC_URL, DB_USER, DB_PASS)) {
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
 			
 			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_ALL);
 			ResultSet rs = pStmt.executeQuery();
@@ -66,5 +53,30 @@ public class EmployeesDAO {
 		}
 		return empList;
 	}
+	
+	/**
+	 * そのIDが存在しているかを調べる
+	 * @param id
+	 * @return true -- 存在している<br>
+	 *          false -- 存在していない
+	 */
+	public boolean isExistsId(String id) {
+		DBConnect.registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+
+			PreparedStatement pStmt = conn.prepareStatement(SQL_EXISTS_ID);
+			pStmt.setString(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return true;
+		}		
+		return false;
+	}
+	
 	
 } // class end

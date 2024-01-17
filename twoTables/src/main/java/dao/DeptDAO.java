@@ -11,18 +11,22 @@ import java.util.List;
 import model.dept.Dept;
 
 public class DeptDAO {
-	private final String SQL_FIND_ALL =
-					"SELECT id, name FROM dept ORDER BY id";
-	private final String SQL_EXISTS_DEPT_ID =
-			"SELECT id FROM dept WHERE id = ?";
-	private final String SQL_FIND_BY_ID =
+	private final String SQL_FIND_ALL = 
+			"SELECT id, name FROM dept";
+	
+	private final String SQL_FIND_NAME_BY_ID =
 			"SELECT name FROM dept WHERE id = ?";
-
+	
+	private final String SQL_IS_EXISTS_DEPT_ID =
+			"SELECT id FROM dept WHERE id = ?";
+	
 	public List<Dept> findAll() {
 		List<Dept> deptList = new ArrayList<>();
+		
 		DBConnect.registerDriver();
 		try (Connection conn = DriverManager.getConnection
 				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			
 			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_ALL);
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
@@ -38,17 +42,38 @@ public class DeptDAO {
 		return deptList;
 	}
 
+	public String findNameById(String id) {
+		String name = null;
+		
+		DBConnect.registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			
+			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_NAME_BY_ID);
+			pStmt.setString(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				name = rs.getString("name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return name;
+	}
+
 	/**
-	 * 部署IDがすでに存在しているかを調べる
+	 * そのdept_idが存在するかどうか
 	 * @param id
-	 * @return true -- すでに存在している<br>
-	 *         false -- 存在していない
+	 * @return true -- 存在する<br>
+	 *         false -- 存在しない
 	 */
 	public boolean isExistsId(String id) {
 		DBConnect.registerDriver();
 		try (Connection conn = DriverManager.getConnection
 				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
-			PreparedStatement pStmt = conn.prepareStatement(SQL_EXISTS_DEPT_ID);
+			
+			PreparedStatement pStmt = conn.prepareStatement(SQL_IS_EXISTS_DEPT_ID);
 			pStmt.setString(1, id);
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
@@ -61,20 +86,4 @@ public class DeptDAO {
 		return false;
 	}
 	
-	public String findNameById(String id) {
-		String name = null;
-		try (Connection conn = DriverManager.getConnection
-				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
-			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_BY_ID);
-			pStmt.setString(1, id);
-			ResultSet rs = pStmt.executeQuery();
-			if (rs.next()) {
-				name = rs.getString("name");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return name;
-	}
 }

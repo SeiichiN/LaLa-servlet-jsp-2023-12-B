@@ -81,3 +81,8 @@ th {
 .errMsg {
 	color: red;
 }
+
+.dept-select-box {
+	width: 70%;
+	background-color: transparent;
+}

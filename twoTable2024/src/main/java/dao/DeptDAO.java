@@ -13,11 +13,16 @@ import model.dept.Dept;
 public class DeptDAO {
 	private final String SQL_FIND_ALL =
 					"SELECT id, name FROM dept ORDER BY id";
+	
 	private final String SQL_EXISTS_DEPT_ID =
 			"SELECT id FROM dept WHERE id = ?";
+	
 	private final String SQL_FIND_BY_ID =
 			"SELECT name FROM dept WHERE id = ?";
 
+	private final String SQL_CREATE =
+			"INSERT INTO dept (id, name) VALUES (?, ?)";
+	
 	public List<Dept> findAll() {
 		List<Dept> deptList = new ArrayList<>();
 		DBConnect.registerDriver();
@@ -76,5 +81,22 @@ public class DeptDAO {
 			return null;
 		}
 		return name;
+	}
+	
+	public boolean create(Dept dept) {
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			PreparedStatement pStmt = conn.prepareStatement(SQL_CREATE);
+			pStmt.setString(1, dept.getId());
+			pStmt.setString(2, dept.getName());
+		    int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

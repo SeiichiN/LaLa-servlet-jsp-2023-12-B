@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Employee;
 import model.IsExistsIdLogic;
+import model.dept.Dept;
 import model.dept.IsExistsDeptIdLogic;
 
 public class MyValidator {
@@ -20,6 +21,20 @@ public class MyValidator {
 		checkOther(emp, errors);
 		return errors;
 	}
+	
+	public List<String> check(Dept dept) {
+		List<String> errors = new ArrayList<>();
+		checkId(dept, errors);
+		checkOther(dept, errors);
+		return errors;
+	}
+	
+	public List<String> checkUpdate(Dept dept) {
+		List<String> errors = new ArrayList<>();
+		checkOther(dept, errors);
+		return errors;
+	}
+	
 	
 	private void checkId(Employee emp, List<String> errors) {
 		if (emp.getId() == null || emp.getId().length() == 0) {
@@ -53,4 +68,28 @@ public class MyValidator {
 			errors.add("そのIDは存在していません");
 		}
 	}
+
+	private void checkId(Dept dept, List<String> errors) {
+		if (dept.getId() == null || dept.getId().length() == 0) {
+			errors.add("IDが未入力です");
+		} else {
+			if (!dept.getId().matches("^D[0-9]{2}$")) {
+				errors.add("IDの形式が不正です");
+			}
+			IsExistsDeptIdLogic isExistsDeptIdLogic = new IsExistsDeptIdLogic();
+			if (isExistsDeptIdLogic.execute(dept.getId())) {
+				errors.add("そのIDは存在しています");
+			}
+		}
+	}
+	
+	private void checkOther(Dept dept, List<String> errors) {
+		if (dept.getName() == null || dept.getName().length() == 0) {
+			errors.add("名前が未入力です");
+		}
+		else if (dept.getName().length() > 20) {
+			errors.add("文字が長すぎます");
+		}
+	}
+
 }

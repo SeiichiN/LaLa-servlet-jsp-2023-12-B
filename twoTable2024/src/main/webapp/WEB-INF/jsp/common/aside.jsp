@@ -5,6 +5,7 @@
 	<h2>サブメニュー</h2>
 	<ul>
 		<li><a href="create">新規登録</a></li>
+		<li><a href="deptList">部署一覧</a>
 		<li>
 			<form action="searchName" class="search-box" method="post">
 				<input placeholder="名前検索" type="text" name="name">

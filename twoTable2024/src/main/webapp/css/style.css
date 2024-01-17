@@ -55,16 +55,27 @@ article {
 .image-btn:hover {
 	box-shadow: 0 2px #333;
 }
-.search-box input:focus {
-	outline: none;
-}
 
+/******************
+ aside
+ ******************/
 aside h2 {
 	font-size: 1em;
 }
 
 aside li a {
 	text-decoration: underline;
+}
+.search-box {
+	display: flex;
+}
+.search-box input:focus {
+	outline: none;
+}
+
+.search-box select {
+	background-color: transparent;
+	flex: 1 1 auto;
 }
 
 /************************/

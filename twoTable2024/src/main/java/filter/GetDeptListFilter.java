@@ -17,7 +17,7 @@ import model.dept.GetDeptListLogic;
 
 // aside.jspで deptList を使うなら、すべてのURLでこのフィルターを
 // 実行させる必要がある。"/*" が必要。
-@WebFilter(urlPatterns = {"/list", "/create", "/update"})
+@WebFilter(urlPatterns = {"/list", "/create", "/update", "/deptList"})
 public class GetDeptListFilter extends HttpFilter implements Filter {
        
 	public void destroy() {

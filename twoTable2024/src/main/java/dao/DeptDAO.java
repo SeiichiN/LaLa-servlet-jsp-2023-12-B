@@ -17,11 +17,20 @@ public class DeptDAO {
 	private final String SQL_EXISTS_DEPT_ID =
 			"SELECT id FROM dept WHERE id = ?";
 	
-	private final String SQL_FIND_BY_ID =
+	private final String SQL_FIND_NAME_BY_ID =
 			"SELECT name FROM dept WHERE id = ?";
+	
+	private final String SQL_FIND_BY_ID = 
+			"SELECT id, name FROM dept WHERE id = ?";
 
 	private final String SQL_CREATE =
 			"INSERT INTO dept (id, name) VALUES (?, ?)";
+	
+	private final String SQL_UPDATE = 
+			"UPDATE dept SET name = ? WHERE id = ?";
+	
+	private final String SQL_REMOVE = 
+			"DELETE FROM dept WHERE id = ?";
 	
 	public List<Dept> findAll() {
 		List<Dept> deptList = new ArrayList<>();
@@ -70,7 +79,7 @@ public class DeptDAO {
 		String name = null;
 		try (Connection conn = DriverManager.getConnection
 				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
-			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_BY_ID);
+			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_NAME_BY_ID);
 			pStmt.setString(1, id);
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
@@ -83,12 +92,63 @@ public class DeptDAO {
 		return name;
 	}
 	
+	public Dept findById(String id) {
+		Dept dept = null;
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			PreparedStatement pStmt = conn.prepareStatement(SQL_FIND_BY_ID);
+			pStmt.setString(1, id);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next()) {
+				String name = rs.getString("name");
+				dept = new Dept(id, name);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return dept;
+	}
+
 	public boolean create(Dept dept) {
 		try (Connection conn = DriverManager.getConnection
 				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
 			PreparedStatement pStmt = conn.prepareStatement(SQL_CREATE);
 			pStmt.setString(1, dept.getId());
 			pStmt.setString(2, dept.getName());
+		    int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean update(Dept dept) {
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			PreparedStatement pStmt = conn.prepareStatement(SQL_UPDATE);
+			pStmt.setString(1, dept.getName());
+			pStmt.setString(2, dept.getId());
+		    int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean remove(String id) {
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+			PreparedStatement pStmt = conn.prepareStatement(SQL_REMOVE);
+			pStmt.setString(1, id);
 		    int result = pStmt.executeUpdate();
 			if (result != 1) {
 				return false;

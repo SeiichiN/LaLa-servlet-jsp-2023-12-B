@@ -20,13 +20,13 @@
 						<td><c:out value="${dept.id}"/></td>
 						<td><c:out value="${dept.name}"/></td>
 						<td class="no-border">
-							<form action="updateDept" method="GET">
+							<form action="updateDept" method="post">
 								<input type="hidden" name="dept_id" value="${dept.id}">
 								<button type="submit" class="image-btn">${img_pencil}</button>
 							</form>
 						</td>
 						<td class="no-border">
-							<form action="deleteConfirmDept" method="GET">
+							<form action="deleteDeptConfirm" method="post">
 								<input type="hidden" name="dept_id" value="${dept.id}">
 								<button type="submit" class="image-btn">${img_trash}</button>
 							</form>

@@ -18,7 +18,10 @@
 			<form action="searchDept" class="search-box" method="post">
 				<select name="dept_id">
 					<c:forEach var="dept" items="${deptList}">
-						<option value="${dept.id}">
+						<option value="${dept.id}"
+							<c:if test="${not empty dept_id}">
+								${dept.id == dept_id ? 'selected' : ''}
+							</c:if>	>
 							${dept.name}
 						</option>
 					</c:forEach>

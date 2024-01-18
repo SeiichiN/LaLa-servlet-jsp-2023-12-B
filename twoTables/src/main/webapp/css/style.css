@@ -47,12 +47,47 @@ article {
 	margin-right: 10px;
 }
 
+.image-btn {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.image-btn:hover {
+	box-shadow: 0 2px #444;
+}
+
+/************
+  aside
+  ***************/
+
 aside h2 {
 	font-size: 1em;
 }
 
 aside li a {
 	text-decoration: underline;
+}
+
+.search-form {
+	display: flex;
+}
+
+.search-form input {
+	flex: 1 1 auto;
+}
+
+.search-form select {
+	flex: 1 1 auto;
+	background-color: transparent;
+}
+
+.search-form input:focus {
+	outline: none;
+}
+
+.search-form button {
+	flex: 0 0 auto;
 }
 
 /************************/

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpFilter;
 import model.dept.Dept;
 import model.dept.GetDeptListLogic;
 
-@WebFilter(urlPatterns = {"/create", "/update"})
+@WebFilter("/*")
 public class GetDeptListFilter extends HttpFilter implements Filter {
        
 	public void destroy() { }

@@ -28,6 +28,12 @@ public class EmployeesDAO {
 	private final String SQL_EXISTS_ID =
 			"SELECT id FROM employees WHERE id = ?";
 	
+	private final String SQL_CREATE = 
+			"INSERT INTO employees "
+			+ "  (id, name, age, dept_id) "
+			+ " VALUES "
+			+ "  (?, ?, ?, ?)";
+	
 	public List<Employee> findAll() {
 		List<Employee> empList = new ArrayList<>();
 		
@@ -77,6 +83,27 @@ public class EmployeesDAO {
 		}		
 		return false;
 	}
+
+	public boolean create(Employee emp) {
+		DBConnect.registerDriver();
+		try (Connection conn = DriverManager.getConnection
+				(DBConnect.JDBC_URL, DBConnect.DB_USER, DBConnect.DB_PASS)) {
+	
+			PreparedStatement pStmt = conn.prepareStatement(SQL_CREATE);
+			pStmt.setString(1, emp.getId());
+			pStmt.setString(2, emp.getName());
+			pStmt.setInt(3, emp.getAge());
+			pStmt.setString(4, emp.getDept().getId());
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}  // create
 	
 	
 } // class end

@@ -8,10 +8,22 @@ import model.IsExistsIdLogic;
 import model.dept.IsExistsDeptIdLogic;
 
 public class MyValidator {
+	// 新規作成時
 	public List<String> check(Employee emp) {
 		List<String> errors = new ArrayList<>();
-		
-		// idチェック
+		checkId(emp, errors);
+		checkOther(emp, errors);
+		return errors;
+	}
+	
+	// 更新時
+	public List<String> checkUpdate(Employee emp) {
+		List<String> errors = new ArrayList<>();
+		checkOther(emp, errors);
+		return errors;
+	}
+	
+	private void checkId(Employee emp, List<String> errors) {
 		if (emp.getId() == null || emp.getId().length() == 0) {
 			errors.add("IDが未入力です");
 		}
@@ -21,7 +33,10 @@ public class MyValidator {
 		IsExistsIdLogic isExistsIdLogic = new IsExistsIdLogic();
 		if (isExistsIdLogic.execute(emp.getId())) {
 			errors.add("そのIDは存在しています");
-		}
+		}		
+	}
+	
+	private void checkOther(Employee emp, List<String> errors) {
 		if (emp.getName() == null || emp.getName().length() == 0) {
 			errors.add("名前が未入力です");
 		}
@@ -35,8 +50,6 @@ public class MyValidator {
 		IsExistsDeptIdLogic deptLogic = new IsExistsDeptIdLogic();
 		if (!deptLogic.execute(emp.getDept().getId())) {
 			errors.add("存在していない部署です");
-		}
-		
-		return errors;
+		}		
 	}
-}
+} // class end

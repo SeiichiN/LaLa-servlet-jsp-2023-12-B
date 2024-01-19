@@ -27,7 +27,7 @@ public class EmployeeDAO {
 		}
 		
 		try (Connection conn = ds.getConnection();) {
-			String sql = "select * from employee";
+			String sql = "select * from employees";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
@@ -44,7 +44,7 @@ public class EmployeeDAO {
 		return empList;
 	}
 	
-	private String sql = "INSERT INTO employee (id, name, age) VALUES (?, ?, ?)";
+	private String sql = "INSERT INTO employees (id, name, age) VALUES (?, ?, ?)";
 	private boolean isError = true;
 
 	/**

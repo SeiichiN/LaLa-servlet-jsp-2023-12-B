@@ -17,7 +17,13 @@ public class UpdateDeptServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String dept_id = request.getParameter("dept_id");
-		Dept dept = new GetDeptByIdLogic().execute(dept_id);
+		String dept_name = request.getParameter("dept_name");
+		Dept dept = null;
+		if (dept_name == null) {
+			dept = new GetDeptByIdLogic().execute(dept_id);
+		} else {
+			dept = new Dept(dept_id, dept_name);
+		}
 		request.setAttribute("dept", dept);
 		String url = "WEB-INF/jsp/update/updateDept.jsp";
 		request.getRequestDispatcher(url).forward(request, response);
